@@ -65,23 +65,23 @@ export const trustBadges = [
 
 // ─── Products ───
 export const newReleases = [
-  { id: 1, name: 'Resident Evil Requiem', platform: 'PS5', price: 3800, image: '/images/ig/001-2026-03-02-a.jpg', badge: 'Nuevo', href: 'https://www.instagram.com/p/DVZYdG4DqJV/' },
-  { id: 2, name: 'Resident Evil Requiem', platform: 'Switch 2', price: 3800, image: '/images/ig/001-2026-03-02-b.jpg', badge: 'Nuevo', href: 'https://www.instagram.com/p/DVZYdG4DqJV/' },
-  { id: 3, name: 'Pragmata', platform: 'PS5', price: 3800, salePrice: 3600, image: '/images/ig/002-2026-03-01-a.jpg', badge: 'Pre-Orden', href: 'https://www.instagram.com/p/DVV6c1Ljvc6/' },
-  { id: 4, name: 'Pragmata', platform: 'Switch 2', price: 3800, salePrice: 3600, image: '/images/ig/002-2026-03-01-b.jpg', badge: 'Pre-Orden', href: 'https://www.instagram.com/p/DVV6c1Ljvc6/' },
-  { id: 5, name: 'Pokemon Pokopia', platform: 'Switch 2', price: 5150, salePrice: 4950, image: '/images/ig/003-2026-02-28.jpg', badge: 'Pre-Orden', href: 'https://www.instagram.com/p/DVTPO8wjqBv/' },
+  { id: 1, name: 'Resident Evil Requiem', platform: 'PS5', price: 3800, image: '/images/products/games/re-requiem-ps5.png', badge: 'Nuevo', href: 'https://www.instagram.com/p/DVZYdG4DqJV/' },
+  { id: 2, name: 'Resident Evil Requiem', platform: 'Switch 2', price: 3800, image: '/images/products/games/re-requiem-nsw2.png', badge: 'Nuevo', href: 'https://www.instagram.com/p/DVZYdG4DqJV/' },
+  { id: 3, name: 'Pragmata', platform: 'PS5', price: 3800, salePrice: 3600, image: '/images/products/games/pragmata-ps5.png', badge: 'Pre-Orden', href: 'https://www.instagram.com/p/DVV6c1Ljvc6/' },
+  { id: 4, name: 'Pragmata', platform: 'Switch 2', price: 3800, salePrice: 3600, image: '/images/products/games/pragmata-nsw2.png', badge: 'Pre-Orden', href: 'https://www.instagram.com/p/DVV6c1Ljvc6/' },
+  { id: 5, name: 'Pokemon Pokopia', platform: 'Switch 2', price: 5150, salePrice: 4950, image: '/images/products/games/pokemon-pokopia-nsw2.png', badge: 'Pre-Orden', href: 'https://www.instagram.com/p/DVTPO8wjqBv/' },
 ]
 
 export const consoles = [
-  { id: 10, name: 'PS5 Slim Disco Ghost of Yotei', platform: 'PS5', price: 44350, salePrice: 38450, image: '/images/ig/004-2026-02-05-a.jpg', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY615plLQa/' },
-  { id: 11, name: 'PS5 Slim Disco Fortnite', platform: 'PS5', price: 34450, salePrice: 32950, image: '/images/ig/004-2026-02-05-b.jpg', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY615plLQa/' },
-  { id: 12, name: 'PS5 Slim Digital Fortnite', platform: 'PS5', price: 30450, salePrice: 28950, image: '/images/ig/004-2026-02-05-c.jpg', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY615plLQa/' },
-  { id: 13, name: 'PS5 Slim Disco', platform: 'PS5', price: 34500, salePrice: 31950, image: '/images/ig/004-2026-02-05-d.jpg', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY615plLQa/' },
-  { id: 14, name: 'Nintendo Switch 2', platform: 'Switch 2', price: 33500, salePrice: 29450, image: '/images/ig/005-2026-02-05-a.jpg', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY6ZupFPjY/' },
-  { id: 15, name: 'NSW2 Bundles', platform: 'Switch 2', price: 35950, salePrice: 31450, image: '/images/ig/005-2026-02-05-b.jpg', badge: 'Bundle', href: 'https://www.instagram.com/p/DUY6ZupFPjY/' },
-  { id: 16, name: 'Xbox Series X 1TB Digital', platform: 'Xbox', price: 38950, salePrice: 36950, image: '/images/ig/006-2026-02-05-a.jpg', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
-  { id: 17, name: 'Xbox Series S 512GB', platform: 'Xbox', price: null, salePrice: 24950, image: '/images/ig/006-2026-02-05-b.jpg', badge: null, href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
-  { id: 18, name: 'Xbox Series X 1TB SSD', platform: 'Xbox', price: 39450, salePrice: 37450, image: '/images/ig/006-2026-02-05-c.jpg', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
+  { id: 10, name: 'PS5 Slim Disco Ghost of Yotei', platform: 'PS5', price: 44350, salePrice: 38450, image: '/images/products/consoles/ps5-ghost-yotei-bundle.png', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 11, name: 'PS5 Slim Disco Fortnite', platform: 'PS5', price: 34450, salePrice: 32950, image: '/images/products/consoles/ps5-slim-disco-fortnite.png', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 12, name: 'PS5 Slim Digital Fortnite', platform: 'PS5', price: 30450, salePrice: 28950, image: '/images/products/consoles/ps5-slim-digital-fortnite.png', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 13, name: 'PS5 Slim Disco', platform: 'PS5', price: 34500, salePrice: 31950, image: '/images/products/consoles/ps5-slim-disco-box.png', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 14, name: 'Nintendo Switch 2', platform: 'Switch 2', price: 33500, salePrice: 29450, image: '/images/products/consoles/nsw2-box.png', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY6ZupFPjY/' },
+  { id: 15, name: 'NSW2 Bundles', platform: 'Switch 2', price: 35950, salePrice: 31450, image: '/images/products/consoles/nsw2-bundle-box.png', badge: 'Bundle', href: 'https://www.instagram.com/p/DUY6ZupFPjY/' },
+  { id: 16, name: 'Xbox Series X 1TB Digital', platform: 'Xbox', price: 38950, salePrice: 36950, image: '/images/products/consoles/xbox-series-x-digital-white.png', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
+  { id: 17, name: 'Xbox Series S 512GB', platform: 'Xbox', price: null, salePrice: 24950, image: '/images/products/consoles/xbox-series-s.png', badge: null, href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
+  { id: 18, name: 'Xbox Series X 1TB SSD', platform: 'Xbox', price: 39450, salePrice: 37450, image: '/images/products/consoles/xbox-series-x.png', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
 ]
 
 export const deals = [
