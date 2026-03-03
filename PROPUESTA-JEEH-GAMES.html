@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propuesta — Plataforma eCommerce Jeeh Games Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --void: #0A0A14;
+      --void-light: #12121F;
+      --void-lighter: #1A1A2E;
+      --neon: #39FF14;
+      --neon-dim: #2bcc10;
+      --ghost: #F0EFF4;
+      --ghost-dim: #8A8A9A;
+      --blue: #3B82F6;
+      --red: #EF4444;
+      --purple: #8B5CF6;
+      --pink: #EC4899;
+      --green-wa: #25D366;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--void);
+      color: var(--ghost);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Cover Page ─── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--void) 0%, var(--void-light) 50%, var(--void) 100%);
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 50%, rgba(57,255,20,0.06) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 50%, rgba(139,92,246,0.04) 0%, transparent 50%);
+      animation: glow-drift 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow-drift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(30px, -20px); }
+    }
+
+    .cover-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(57,255,20,0.2);
+      background: rgba(57,255,20,0.05);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 2.5rem;
+    }
+
+    .cover-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--neon);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .cover h1 {
+      position: relative;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    .cover h1 .accent {
+      color: var(--neon);
+      text-shadow: 0 0 30px rgba(57,255,20,0.3);
+    }
+
+    .cover h2 {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 400;
+      color: var(--ghost-dim);
+      margin-bottom: 3rem;
+      max-width: 500px;
+    }
+
+    .cover-meta {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--ghost-dim);
+    }
+
+    .cover-meta strong {
+      color: var(--ghost);
+      font-weight: 600;
+    }
+
+    .cover-logo {
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--ghost-dim);
+      letter-spacing: 0.1em;
+      margin-top: 4rem;
+      opacity: 0.4;
+    }
+
+    /* ─── Content Pages ─── */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem;
+    }
+
+    .page + .page {
+      border-top: 1px solid rgba(240,239,244,0.05);
+    }
+
+    /* ─── Section Number + Title ─── */
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--neon);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--ghost);
+    }
+
+    p {
+      color: rgba(240,239,244,0.75);
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    strong { color: var(--ghost); font-weight: 600; }
+
+    .highlight {
+      color: var(--neon);
+      font-weight: 600;
+    }
+
+    /* ─── Lists ─── */
+    ul, ol {
+      padding-left: 0;
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    ul li, ol li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.6rem;
+      color: rgba(240,239,244,0.75);
+      font-size: 0.95rem;
+    }
+
+    ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--neon);
+      opacity: 0.6;
+    }
+
+    ol { counter-reset: ol-counter; }
+    ol li { counter-increment: ol-counter; }
+    ol li::before {
+      content: counter(ol-counter);
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--neon);
+    }
+
+    /* ─── Tables ─── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0 2rem;
+      font-size: 0.85rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--neon);
+      border-bottom: 1px solid rgba(57,255,20,0.2);
+      background: rgba(57,255,20,0.03);
+    }
+
+    tbody td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(240,239,244,0.04);
+      color: rgba(240,239,244,0.75);
+      vertical-align: top;
+    }
+
+    tbody tr:hover {
+      background: rgba(240,239,244,0.02);
+    }
+
+    tbody td:first-child {
+      color: var(--ghost);
+      font-weight: 600;
+    }
+
+    /* ─── Stat Cards ─── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: var(--void-light);
+      border: 1px solid rgba(240,239,244,0.05);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-card .num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--neon);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-card .label {
+      font-size: 0.75rem;
+      color: var(--ghost-dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── Feature Cards ─── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .feature-card {
+      background: var(--void-light);
+      border: 1px solid rgba(240,239,244,0.05);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    .feature-card .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--ghost);
+    }
+
+    .feature-card p {
+      font-size: 0.8rem;
+      color: var(--ghost-dim);
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    /* ─── Phase Timeline ─── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--neon), var(--purple), var(--pink));
+      opacity: 0.3;
+      border-radius: 2px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--neon);
+      background: var(--void);
+    }
+
+    .timeline-item:nth-child(2)::before { border-color: var(--purple); }
+    .timeline-item:nth-child(3)::before { border-color: var(--pink); }
+
+    .timeline-item .phase-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-item:nth-child(1) .phase-label { color: var(--neon); }
+    .timeline-item:nth-child(2) .phase-label { color: var(--purple); }
+    .timeline-item:nth-child(3) .phase-label { color: var(--pink); }
+
+    .timeline-item h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .timeline-item ul {
+      margin-bottom: 0;
+    }
+
+    /* ─── Tech Stack Grid ─── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .tech-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: var(--void-light);
+      border: 1px solid rgba(240,239,244,0.05);
+      border-radius: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .tech-item .tech-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--neon);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .tech-item .tech-name {
+      color: var(--ghost);
+      font-weight: 500;
+    }
+
+    /* ─── Callout Box ─── */
+    .callout {
+      background: rgba(57,255,20,0.04);
+      border: 1px solid rgba(57,255,20,0.15);
+      border-left: 3px solid var(--neon);
+      border-radius: 0 0.75rem 0.75rem 0;
+      padding: 1.25rem 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .callout p {
+      color: rgba(240,239,244,0.85);
+      margin-bottom: 0;
+      font-size: 0.9rem;
+    }
+
+    .callout.red {
+      background: rgba(239,68,68,0.04);
+      border-color: rgba(239,68,68,0.15);
+      border-left-color: var(--red);
+    }
+
+    /* ─── CTA / Closing ─── */
+    .closing {
+      text-align: center;
+      padding: 5rem 2rem;
+      position: relative;
+    }
+
+    .closing::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--neon), transparent);
+    }
+
+    .closing blockquote {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 500;
+      line-height: 1.6;
+      color: rgba(240,239,244,0.7);
+      max-width: 650px;
+      margin: 2rem auto;
+      font-style: italic;
+    }
+
+    .closing blockquote .accent {
+      color: var(--neon);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    .closing .tagline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--neon);
+      opacity: 0.7;
+    }
+
+    /* ─── Divider ─── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(240,239,244,0.08), transparent);
+      margin: 3rem 0;
+    }
+
+    /* ─── Badge colors ─── */
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-green { background: rgba(57,255,20,0.15); color: var(--neon); }
+    .badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+
+    /* ─── Print styles ─── */
+    @media print {
+      body { background: white; color: #1a1a1a; }
+      .cover { background: #f8f8f8; min-height: auto; padding: 3rem 2rem; }
+      .cover::before { display: none; }
+      .cover h1 .accent { color: #0d7a00; text-shadow: none; }
+      .section-num { color: #0d7a00; }
+      .stat-card .num { color: #0d7a00; }
+      .stat-card, .feature-card, .tech-item { background: #f5f5f5; border-color: #e0e0e0; }
+      table thead th { background: #f0f0f0; color: #0d7a00; border-color: #0d7a00; }
+      table tbody td { border-color: #e8e8e8; color: #333; }
+      p, ul li, ol li { color: #444; }
+      .callout { background: #f0faf0; border-color: #0d7a00; }
+      .callout.red { background: #fef0f0; border-color: #dc2626; }
+      .closing blockquote .accent { color: #0d7a00; }
+      .page { padding: 2rem; }
+      .cover-badge .dot { background: #0d7a00; }
+      .cover-badge { border-color: #0d7a00; color: #0d7a00; }
+      .timeline::before { opacity: 0.5; }
+      .closing::before { background: linear-gradient(to right, transparent, #0d7a00, transparent); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ COVER PAGE ═══════════ -->
+  <div class="cover">
+    <div class="cover-badge">
+      <span class="dot"></span>
+      Propuesta Comercial
+    </div>
+    <h1>
+      Plataforma<br>
+      <span class="accent">eCommerce</span>
+    </h1>
+    <h2>Catalogo en tiempo real, pedidos automatizados y presencia digital profesional para Jeeh Games Store</h2>
+    <div class="cover-meta">
+      <span><strong>Preparado para:</strong> Jeeh Games Store (@jeehgamesstore)</span>
+      <span><strong>Fecha:</strong> Marzo 2026</span>
+      <span><strong>Documento:</strong> Propuesta de Desarrollo Web</span>
+    </div>
+    <div class="cover-logo">CONFIDENCIAL</div>
+  </div>
+
+  <!-- ═══════════ SECTION 1: INTRO ═══════════ -->
+  <div class="page">
+    <span class="section-num">// 01 — Introduccion</span>
+    <h2>Su marca es enorme.<br>Su tienda online no existe.</h2>
+
+    <p>
+      Estimado equipo de <strong>Jeeh Games Store</strong>,
+    </p>
+    <p>
+      Hemos analizado a fondo su presencia digital, su modelo de negocio y su operacion actual. Los numeros hablan por si solos:
+    </p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="num">232K</div>
+        <div class="label">Seguidores en Instagram</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">5,700+</div>
+        <div class="label">Publicaciones</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">4.8</div>
+        <div class="label">Estrellas (Reviews)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">0</div>
+        <div class="label">Tienda Online</div>
+      </div>
+    </div>
+
+    <p>
+      Jeeh Games es sin duda la tienda de videojuegos mas reconocida de Republica Dominicana. Sin embargo, identificamos una brecha critica: <strong>toda esa audiencia masiva no tiene un lugar donde comprar directamente</strong>. Su sitio web (jeehgames.com) sigue en "Coming Soon", y cada venta remota depende de conversaciones manuales por WhatsApp e Instagram.
+    </p>
+    <p>
+      Nuestra propuesta: <strong class="highlight">una plataforma eCommerce profesional</strong> donde sus clientes puedan ver el catalogo completo en tiempo real, consultar precios, verificar disponibilidad y realizar pedidos — sin esperar respuesta de un agente.
+    </p>
+  </div>
+
+  <!-- ═══════════ SECTION 2: DIAGNOSTICO ═══════════ -->
+  <div class="page">
+    <span class="section-num">// 02 — Diagnostico</span>
+    <h2>Lo que hacen bien.<br>Lo que les esta costando ventas.</h2>
+
+    <h3>Sus fortalezas</h3>
+    <ul>
+      <li>Marca posicionada con 232K seguidores — la mas grande del sector en RD</li>
+      <li>Catalogo diverso: consolas (PS5, Switch 2, Xbox), juegos, accesorios, sillas gaming, reparaciones</li>
+      <li>Delivery a todo RD ya implementado</li>
+      <li>Excelente reputacion (reviews 4.3 - 4.8 estrellas)</li>
+      <li>Contenido constante (5,700+ publicaciones)</li>
+      <li>Multiples formas de pago (efectivo, transferencia BHD/Popular/Banreservas, tarjetas)</li>
+    </ul>
+
+    <h3>Donde estan perdiendo ventas</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Problema</th>
+          <th>Impacto en su Negocio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sin catalogo online</td>
+          <td>Los clientes no pueden ver que hay disponible sin escribir por WhatsApp y esperar respuesta</td>
+        </tr>
+        <tr>
+          <td>Ventas 100% manuales</td>
+          <td>Cada pedido requiere: mensaje → respuesta → verificar stock → cotizar → confirmar → cobrar → delivery. Todo manual</td>
+        </tr>
+        <tr>
+          <td>Sin precios visibles</td>
+          <td>Los clientes deben preguntar precio por precio. Muchos desisten antes de preguntar</td>
+        </tr>
+        <tr>
+          <td>Horario limitado</td>
+          <td>Solo pueden vender cuando hay alguien disponible (L-S 8AM-8PM). Una web vende 24/7</td>
+        </tr>
+        <tr>
+          <td>WhatsApp no escala</td>
+          <td>En promociones y dias pico, el volumen de mensajes supera la capacidad de respuesta</td>
+        </tr>
+        <tr>
+          <td>Engagement bajo (0.05%)</td>
+          <td>232K seguidores pero ~105 likes/post — la audiencia existe pero no se convierte en ventas</td>
+        </tr>
+        <tr>
+          <td>Ubicacion limitada</td>
+          <td>Los Alcarrizos no es el punto mas accesible de Santo Domingo. Un eCommerce elimina esa barrera</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout red">
+      <p>
+        <strong>Estimacion conservadora:</strong> Si el 1% de sus 232K seguidores visitara una tienda online y el 5% de esos comprara algo promedio de RD$5,000, eso representa <strong>RD$580,000 en ventas adicionales mensuales</strong> que hoy se pierden por no tener donde comprar.
+      </p>
+    </div>
+  </div>
+
+  <!-- ═══════════ SECTION 3: SOLUCION ═══════════ -->
+  <div class="page">
+    <span class="section-num">// 03 — Nuestra Solucion</span>
+    <h2>Plataforma eCommerce<br><span style="color: var(--neon);">Jeeh Games</span></h2>
+
+    <h3>Catalogo en Tiempo Real</h3>
+    <p>El corazon de la plataforma. Sus clientes podran:</p>
+    <ul>
+      <li><strong>Ver todos los productos disponibles</strong> organizados por categoria (PS5, Switch 2, Xbox, Juegos, Accesorios)</li>
+      <li><strong>Filtrar por plataforma, precio, disponibilidad y tipo</strong> (consolas, juegos, accesorios, pre-ordenes)</li>
+      <li><strong>Buscar productos</strong> con barra de busqueda inteligente</li>
+      <li><strong>Ver precios actualizados</strong> incluyendo ofertas y descuentos en tiempo real</li>
+      <li><strong>Verificar disponibilidad</strong> sin necesidad de escribir a nadie</li>
+      <li><strong>Ver imagenes detalladas</strong> de cada producto desde multiples angulos</li>
+    </ul>
+
+    <h3>Funcionalidades eCommerce</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Funcionalidad</th>
+          <th>Descripcion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Carrito de Compras</td>
+          <td>Los clientes agregan productos, ajustan cantidades y ven el total antes de pagar</td>
+        </tr>
+        <tr>
+          <td>Pedido via WhatsApp</td>
+          <td>El boton "Comprar" genera un mensaje de WhatsApp pre-armado con todos los detalles del pedido. Su equipo solo confirma y procesa</td>
+        </tr>
+        <tr>
+          <td>Catalogo Dinamico</td>
+          <td>Actualizan productos, precios y stock desde un panel de administracion. Los cambios se reflejan al instante</td>
+        </tr>
+        <tr>
+          <td>Sistema de Pre-Ordenes</td>
+          <td>Los clientes reservan juegos antes del lanzamiento directamente desde la web</td>
+        </tr>
+        <tr>
+          <td>Ofertas y Promociones</td>
+          <td>Banners promocionales, badges de descuento, precios tachados, temporizadores de ofertas</td>
+        </tr>
+        <tr>
+          <td>Fichas de Producto</td>
+          <td>Pagina individual por producto con descripcion, imagenes, plataforma, precio, estado de stock</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Panel de Administracion</h3>
+    <p>Sin necesidad de programar nada, su equipo podra:</p>
+    <ul>
+      <li><strong>Agregar/editar/eliminar productos</strong> (nombre, precio, imagenes, descripcion, stock)</li>
+      <li><strong>Gestionar categorias</strong> y organizar el catalogo</li>
+      <li><strong>Activar/desactivar ofertas</strong> y ajustar precios de venta</li>
+      <li><strong>Ver estadisticas:</strong> productos mas vistos, mas agregados al carrito, consultas frecuentes</li>
+      <li><strong>Gestionar banners</strong> del carousel promocional</li>
+      <li><strong>Recibir notificaciones</strong> de nuevos pedidos</li>
+    </ul>
+
+    <h3>Integracion con Redes Sociales</h3>
+    <ul>
+      <li><strong>Feed de Instagram</strong> integrado en la pagina — sus publicaciones se muestran automaticamente</li>
+      <li><strong>Botones de WhatsApp</strong> en cada producto y en la pagina de contacto</li>
+      <li><strong>Links a Instagram</strong> en todos los productos para ver mas contenido</li>
+      <li><strong>Compartir productos</strong> en redes sociales directamente desde la ficha del producto</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SECTION 4: BENEFICIOS ═══════════ -->
+  <div class="page">
+    <span class="section-num">// 04 — Beneficios Concretos</span>
+    <h2>Lo que cambia para<br>Jeeh Games</h2>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="icon" style="background: rgba(57,255,20,0.1);">&#128337;</div>
+        <h4>Ventas 24/7</h4>
+        <p>Su tienda fisica cierra. Su web nunca cierra. Los clientes pueden explorar el catalogo y enviar pedidos a cualquier hora.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon" style="background: rgba(59,130,246,0.1);">&#128101;</div>
+        <h4>Menos Carga para su Equipo</h4>
+        <p>Hoy cada "Cuanto cuesta la PS5?" consume tiempo de un agente. Con la web, el cliente ve el precio solo.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon" style="background: rgba(139,92,246,0.1);">&#128200;</div>
+        <h4>Catalogo Siempre Actualizado</h4>
+        <p>Cambian un precio? Llega producto nuevo? Lo actualizan en el panel y al instante 232K seguidores pueden verlo.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon" style="background: rgba(236,72,153,0.1);">&#128176;</div>
+        <h4>Conversion de Seguidores</h4>
+        <p>Un link en su bio de Instagram que lleve a una tienda real (no "coming soon") convierte curiosos en compradores.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon" style="background: rgba(245,158,11,0.1);">&#127942;</div>
+        <h4>Ventaja Competitiva</h4>
+        <p>La mayoria de tiendas en RD venden solo por redes. Ser la primera con eCommerce profesional los posiciona como lideres.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon" style="background: rgba(16,185,129,0.1);">&#128272;</div>
+        <h4>Credibilidad Profesional</h4>
+        <p>Una tienda online profesional transmite confianza. Los clientes que no conocen la tienda fisica se sienten mas seguros.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SECTION 5: DISENO ═══════════ -->
+  <div class="page">
+    <span class="section-num">// 05 — Diseno y Experiencia</span>
+    <h2>Diseno premium.<br>Estetica gaming.</h2>
+
+    <p>La plataforma tendra un diseno que refleja la identidad de marca de Jeeh Games:</p>
+
+    <ul>
+      <li><strong>Tema oscuro profesional</strong> — estetica gamer moderna que resalta los productos</li>
+      <li><strong>Responsive</strong> — funciona perfecto en celulares, tablets y computadoras</li>
+      <li><strong>Ultra rapida</strong> — carga en menos de 2 segundos</li>
+      <li><strong>SEO optimizado</strong> — aparece en Google cuando busquen "tienda de videojuegos RD"</li>
+      <li><strong>Animaciones sutiles</strong> — transiciones suaves que mejoran la experiencia sin distraer</li>
+    </ul>
+
+    <h3>Secciones de la Web</h3>
+    <ol>
+      <li><strong>Header</strong> — Logo, barra de busqueda, carrito, links a redes sociales</li>
+      <li><strong>Barra de Categorias</strong> — Navegacion rapida por plataforma/tipo</li>
+      <li><strong>Banner Promocional</strong> — Carousel automatico con ofertas destacadas</li>
+      <li><strong>Novedades</strong> — Ultimos lanzamientos y pre-ordenes</li>
+      <li><strong>Consolas</strong> — Todas las consolas con filtro por plataforma</li>
+      <li><strong>Ofertas</strong> — Promociones activas con badges y descuentos</li>
+      <li><strong>Instagram Feed</strong> — Sus publicaciones integradas en la pagina</li>
+      <li><strong>Contacto</strong> — WhatsApp, Instagram, telefono, direccion</li>
+      <li><strong>Footer</strong> — Navegacion, categorias, informacion legal</li>
+    </ol>
+
+    <h3>Tecnologia</h3>
+    <div class="tech-grid">
+      <div class="tech-item">
+        <div>
+          <div class="tech-label">Frontend</div>
+          <div class="tech-name">React + Tailwind CSS</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div>
+          <div class="tech-label">Animaciones</div>
+          <div class="tech-name">GSAP</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div>
+          <div class="tech-label">Backend</div>
+          <div class="tech-name">Node.js / API REST</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div>
+          <div class="tech-label">Base de Datos</div>
+          <div class="tech-name">PostgreSQL / Supabase</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div>
+          <div class="tech-label">Hosting</div>
+          <div class="tech-name">Vercel / CDN Global</div>
+        </div>
+      </div>
+      <div class="tech-item">
+        <div>
+          <div class="tech-label">Dominio</div>
+          <div class="tech-name">jeehgames.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SECTION 6: FASES ═══════════ -->
+  <div class="page">
+    <span class="section-num">// 06 — Fases del Proyecto</span>
+    <h2>Plan de ejecucion</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="phase-label">Fase 1 — Catalogo Online</div>
+        <h4>Tienda con Catalogo Completo</h4>
+        <ul>
+          <li>Diseno y desarrollo de la tienda con todos los productos</li>
+          <li>Productos con imagenes, precios, badges y filtros por plataforma</li>
+          <li>Carousel de promociones y banners</li>
+          <li>Integracion WhatsApp inteligente para pedidos</li>
+          <li>Diseno responsive mobile-first</li>
+          <li>Despliegue en jeehgames.com</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="phase-label">Fase 2 — Panel de Administracion</div>
+        <h4>Control Total de su Catalogo</h4>
+        <ul>
+          <li>Dashboard para gestionar productos, precios y stock</li>
+          <li>Gestion de banners y promociones</li>
+          <li>Notificaciones de nuevos pedidos</li>
+          <li>Estadisticas basicas de visitas y productos</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="phase-label">Fase 3 — Funcionalidades Avanzadas (Opcional)</div>
+        <h4>Expansion y Crecimiento</h4>
+        <ul>
+          <li>Cuentas de usuario y wishlists</li>
+          <li>Historial de pedidos</li>
+          <li>Sistema de reviews y valoraciones</li>
+          <li>Pasarela de pagos online</li>
+          <li>Notificaciones push de ofertas</li>
+          <li>App movil nativa</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ SECTION 7: POR QUE NOSOTROS ═══════════ -->
+  <div class="page">
+    <span class="section-num">// 07 — Por que Nosotros</span>
+    <h2>Ya empezamos a construir<br>su tienda.</h2>
+
+    <div class="callout">
+      <p>
+        No estamos presentando una idea abstracta. <strong>Ya tenemos un prototipo funcional</strong> de la tienda construido con los productos, imagenes y precios reales de Jeeh Games Store. Pueden verlo en una demo en vivo.
+      </p>
+    </div>
+
+    <ul>
+      <li><strong>Ya conocemos su negocio</strong> — Hemos analizado su catalogo, sus precios, su audiencia y su competencia</li>
+      <li><strong>Prototipo funcional listo</strong> — Una version inicial de la tienda ya esta construida con sus datos reales</li>
+      <li><strong>Especializacion en tiendas gaming</strong> — El diseno esta pensado especificamente para la industria de videojuegos</li>
+      <li><strong>Tecnologia moderna</strong> — Stack actual que garantiza velocidad, seguridad y escalabilidad</li>
+      <li><strong>Soporte continuo</strong> — No solo entregamos y nos vamos. Mantenimiento, actualizaciones y soporte tecnico incluido</li>
+    </ul>
+
+    <h3>Siguiente Paso</h3>
+    <p>Nos encantaria coordinar una reunion (presencial o virtual) para:</p>
+    <ol>
+      <li><strong>Mostrarles el prototipo</strong> que ya tenemos de su tienda</li>
+      <li><strong>Entender sus necesidades especificas</strong> y prioridades</li>
+      <li><strong>Definir alcance y presupuesto</strong> adaptado a su vision</li>
+      <li><strong>Establecer un calendario</strong> de desarrollo</li>
+    </ol>
+
+    <div class="divider"></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Canal</th>
+          <th>Contacto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>WhatsApp</td>
+          <td>[Tu numero aqui]</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>[Tu email aqui]</td>
+        </tr>
+        <tr>
+          <td>Instagram</td>
+          <td>[Tu Instagram aqui]</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════ CLOSING ═══════════ -->
+  <div class="closing">
+    <blockquote>
+      Jeeh Games ya tiene la marca, la audiencia y los productos. Solo falta el <span class="accent">puente digital</span> que conecte a esos 232,000 seguidores con el boton de "Comprar".
+      <br><br>
+      <strong>Nosotros construimos ese puente.</strong>
+    </blockquote>
+    <div class="tagline">Propuesta Confidencial — Marzo 2026</div>
+  </div>
+
+</body>
+</html>
