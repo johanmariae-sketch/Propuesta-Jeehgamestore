@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import { Search, Menu, X, Gamepad2, ShoppingBag, Instagram, Phone, LayoutGrid, ChevronDown } from 'lucide-react'
 import { useScrollMorph } from '../hooks/useScrollMorph'
-import { storeProfile, categories, newReleases, consoles } from '../data/games'
+import { storeProfile, categories, newReleases, consoles, accessories } from '../data/games'
+
+// All products for search
+const allProducts = [...newReleases, ...consoles, ...accessories]
 
 export default function Navbar() {
   const isScrolled = useScrollMorph('hero')
@@ -9,7 +12,17 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState(null)
   const [catalogOpen, setCatalogOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const catalogRef = useRef(null)
+  const searchRef = useRef(null)
+
+  // Search results
+  const searchResults = searchQuery.length >= 2
+    ? allProducts.filter((p) =>
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.platform.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : []
 
   // Close catalog when clicking outside
   useEffect(() => {
@@ -17,11 +30,12 @@ export default function Navbar() {
       if (catalogRef.current && !catalogRef.current.contains(e.target)) {
         setCatalogOpen(false)
       }
+      if (searchRef.current && !searchRef.current.contains(e.target)) {
+        setSearchQuery('')
+      }
     }
-    if (catalogOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-      return () => document.removeEventListener('mousedown', handleClickOutside)
-    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [catalogOpen])
 
   return (
@@ -80,7 +94,7 @@ export default function Navbar() {
           </a>
 
           {/* Center: Search Bar (Desktop) */}
-          <div className="hidden md:flex flex-1 max-w-md mx-4">
+          <div ref={searchRef} className="hidden md:flex flex-1 max-w-md mx-4 relative">
             <div className="relative w-full">
               <Search
                 size={16}
@@ -88,10 +102,43 @@ export default function Navbar() {
               />
               <input
                 type="text"
-                placeholder="Buscar juegos, consolas..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Buscar juegos, consolas, accesorios..."
                 className="w-full pl-10 pr-4 py-2 rounded-full bg-void-lighter border border-ghost/10 text-sm text-ghost placeholder:text-ghost-dim/60 focus:outline-none focus:border-neon-green/50 focus:ring-1 focus:ring-neon-green/20 transition-all duration-200"
               />
             </div>
+            {/* Search Results Dropdown */}
+            {searchResults.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-void-light border border-ghost/10 rounded-2xl shadow-2xl shadow-black/40 overflow-hidden z-50">
+                <div className="max-h-80 overflow-y-auto p-2">
+                  {searchResults.map((p) => (
+                    <a
+                      key={p.id}
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setSearchQuery('')}
+                      className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-void-lighter transition-colors"
+                    >
+                      <img src={p.image} alt={p.name} className="w-10 h-10 rounded-lg object-contain bg-void" loading="lazy" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-ghost truncate">{p.name}</p>
+                        <p className="text-[10px] text-ghost-dim">{p.platform}</p>
+                      </div>
+                      <span className="text-sm font-mono font-bold text-neon-green flex-shrink-0">
+                        RD${(p.salePrice || p.price).toLocaleString()}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+            {searchQuery.length >= 2 && searchResults.length === 0 && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-void-light border border-ghost/10 rounded-2xl shadow-2xl shadow-black/40 p-4 z-50">
+                <p className="text-sm text-ghost-dim text-center">No se encontraron productos</p>
+              </div>
+            )}
           </div>
 
           {/* Right: Icons */}
@@ -158,21 +205,54 @@ export default function Navbar() {
         {/* Mobile Search Bar (Expandable) */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ${
-            searchOpen ? 'max-h-16 pb-3' : 'max-h-0'
+            searchOpen ? 'max-h-96 pb-3' : 'max-h-0'
           }`}
         >
           <div className="px-4">
             <div className="relative">
               <Search
                 size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-ghost-dim pointer-events-none"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-ghost-dim pointer-events-none z-10"
               />
               <input
                 type="text"
-                placeholder="Buscar juegos, consolas..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Buscar juegos, consolas, accesorios..."
                 className="w-full pl-10 pr-4 py-2 rounded-full bg-void-lighter border border-ghost/10 text-sm text-ghost placeholder:text-ghost-dim/60 focus:outline-none focus:border-neon-green/50 transition-all duration-200"
               />
             </div>
+            {/* Mobile Search Results */}
+            {searchResults.length > 0 && (
+              <div className="mt-2 bg-void-light border border-ghost/10 rounded-xl overflow-hidden">
+                <div className="max-h-60 overflow-y-auto p-1.5">
+                  {searchResults.map((p) => (
+                    <a
+                      key={p.id}
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => { setSearchQuery(''); setSearchOpen(false) }}
+                      className="flex items-center gap-2 p-2 rounded-lg hover:bg-void-lighter transition-colors"
+                    >
+                      <img src={p.image} alt={p.name} className="w-8 h-8 rounded object-contain bg-void" loading="lazy" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-ghost truncate">{p.name}</p>
+                        <p className="text-[10px] text-ghost-dim">{p.platform}</p>
+                      </div>
+                      <span className="text-[11px] font-mono font-bold text-neon-green">
+                        RD${(p.salePrice || p.price).toLocaleString()}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+            {searchQuery.length >= 2 && searchResults.length === 0 && (
+              <div className="mt-2 bg-void-light border border-ghost/10 rounded-xl p-3">
+                <p className="text-xs text-ghost-dim text-center">No se encontraron productos</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -245,7 +325,7 @@ export default function Navbar() {
                   </div>
 
                   {/* Consolas */}
-                  <div>
+                  <div className="mb-6">
                     <h3 className="font-mono text-xs tracking-widest text-neon-green uppercase mb-3">
                       // Consolas
                     </h3>
@@ -282,23 +362,58 @@ export default function Navbar() {
                       ))}
                     </div>
                   </div>
+
+                  {/* Accesorios */}
+                  <div>
+                    <h3 className="font-mono text-xs tracking-widest text-neon-green uppercase mb-3">
+                      // Accesorios
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                      {accessories.map((p) => (
+                        <a
+                          key={p.id}
+                          href={p.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setCatalogOpen(false)}
+                          className="group flex flex-col items-center gap-2 p-3 rounded-xl bg-void-lighter border border-ghost/5 hover:border-neon-green/30 transition-all duration-200"
+                        >
+                          <div className="w-full aspect-square rounded-lg overflow-hidden bg-void">
+                            <img src={p.image} alt={p.name} className="w-full h-full object-contain p-1" loading="lazy" />
+                          </div>
+                          <div className="text-center w-full">
+                            <p className="text-xs font-semibold text-ghost line-clamp-1 group-hover:text-neon-green transition-colors">
+                              {p.name}
+                            </p>
+                            <p className="text-[10px] text-ghost-dim">{p.platform}</p>
+                            <span className="text-xs font-mono font-bold text-neon-green">
+                              RD${(p.salePrice || p.price).toLocaleString()}
+                            </span>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
             {categories.map((cat) => (
-              <a
-                key={cat.href}
-                href={cat.href}
-                onClick={() => setActiveCategory(cat.href)}
+              <button
+                key={cat.label}
+                onClick={() => {
+                  setActiveCategory(cat.label)
+                  const el = document.querySelector(cat.href)
+                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }}
                 className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-200 ${
-                  activeCategory === cat.href
+                  activeCategory === cat.label
                     ? 'border-neon-green text-neon-green bg-neon-green/5'
                     : 'border-ghost/10 bg-void-light text-ghost/70 hover:border-neon-green/50 hover:text-neon-green'
                 }`}
               >
                 {cat.label}
-              </a>
+              </button>
             ))}
           </div>
         </div>
@@ -322,9 +437,42 @@ export default function Navbar() {
             />
             <input
               type="text"
-              placeholder="Buscar juegos, consolas..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Buscar juegos, consolas, accesorios..."
               className="w-full pl-10 pr-4 py-3 rounded-full bg-void-lighter border border-ghost/10 text-sm text-ghost placeholder:text-ghost-dim/60 focus:outline-none focus:border-neon-green/50 transition-all duration-200"
             />
+            {/* Mobile Menu Search Results */}
+            {searchResults.length > 0 && (
+              <div className="mt-2 bg-void-lighter border border-ghost/10 rounded-xl overflow-hidden">
+                <div className="max-h-60 overflow-y-auto p-1.5">
+                  {searchResults.map((p) => (
+                    <a
+                      key={p.id}
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => { setSearchQuery(''); setMenuOpen(false) }}
+                      className="flex items-center gap-2 p-2 rounded-lg hover:bg-void-light transition-colors"
+                    >
+                      <img src={p.image} alt={p.name} className="w-8 h-8 rounded object-contain bg-void" loading="lazy" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-ghost truncate">{p.name}</p>
+                        <p className="text-[10px] text-ghost-dim">{p.platform}</p>
+                      </div>
+                      <span className="text-[11px] font-mono font-bold text-neon-green">
+                        RD${(p.salePrice || p.price).toLocaleString()}
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+            {searchQuery.length >= 2 && searchResults.length === 0 && (
+              <div className="mt-2 bg-void-lighter border border-ghost/10 rounded-xl p-3">
+                <p className="text-xs text-ghost-dim text-center">No se encontraron productos</p>
+              </div>
+            )}
           </div>
 
           {/* Mobile Catálogo */}
@@ -376,6 +524,28 @@ export default function Navbar() {
                 </a>
               ))}
             </div>
+
+            {/* Accesorios */}
+            <p className="text-[10px] uppercase tracking-widest text-neon-green mb-2 px-2">Accesorios</p>
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              {accessories.map((p) => (
+                <a
+                  key={p.id}
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 p-2 rounded-xl bg-void-light border border-ghost/5 hover:border-neon-green/30 transition-all"
+                >
+                  <img src={p.image} alt={p.name} className="w-12 h-12 rounded-lg object-contain bg-void" loading="lazy" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-ghost truncate">{p.name}</p>
+                    <p className="text-[10px] text-ghost-dim">{p.platform}</p>
+                    <p className="text-[11px] font-mono font-bold text-neon-green">RD${(p.salePrice || p.price).toLocaleString()}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Mobile Category Links */}
@@ -384,11 +554,16 @@ export default function Navbar() {
               Categorias
             </p>
             {categories.map((cat, i) => (
-              <a
-                key={cat.href}
-                href={cat.href}
-                onClick={() => setMenuOpen(false)}
-                className="block px-4 py-3 rounded-xl text-ghost text-lg font-sora font-medium hover:bg-void-light transition-colors duration-200"
+              <button
+                key={cat.label}
+                onClick={() => {
+                  setMenuOpen(false)
+                  setTimeout(() => {
+                    const el = document.querySelector(cat.href)
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }, 300)
+                }}
+                className="block w-full text-left px-4 py-3 rounded-xl text-ghost text-lg font-sora font-medium hover:bg-void-light transition-colors duration-200"
                 style={{
                   transitionDelay: menuOpen ? `${i * 50}ms` : '0ms',
                   transform: menuOpen ? 'translateX(0)' : 'translateX(-20px)',
@@ -398,7 +573,7 @@ export default function Navbar() {
                 }}
               >
                 {cat.label}
-              </a>
+              </button>
             ))}
           </div>
 

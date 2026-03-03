@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { ExternalLink, ShoppingCart } from 'lucide-react'
 import { gsap, ScrollTrigger } from '../utils/animations'
-import { newReleases, consoles, platformColors } from '../data/games'
+import { newReleases, consoles, accessories, platformColors } from '../data/games'
 
 // ─── Badge color map ───
 const badgeStyles = {
@@ -93,7 +93,7 @@ function ProductCard({ product }) {
 }
 
 // ─── Section Header ───
-function SectionHeader({ label, title, href = '#' }) {
+function SectionHeader({ label, title }) {
   return (
     <div className="flex items-end justify-between mb-6">
       <div>
@@ -104,13 +104,6 @@ function SectionHeader({ label, title, href = '#' }) {
           {title}
         </h2>
       </div>
-      <a
-        href={href}
-        className="flex items-center gap-1 text-sm text-ghost-dim hover:text-neon-green transition-colors font-mono"
-      >
-        Ver Todo
-        <ExternalLink className="w-3.5 h-3.5" />
-      </a>
     </div>
   )
 }
@@ -119,17 +112,20 @@ function SectionHeader({ label, title, href = '#' }) {
 export default function ProductGrid() {
   const [activeTab, setActiveTab] = useState('Todas')
   const sectionRef = useRef(null)
-  const consolesRef = useRef(null)
 
   const filteredConsoles =
     activeTab === 'Todas'
       ? consoles
       : consoles.filter((c) => c.platform === activeTab)
 
+  const filteredAccessories =
+    activeTab === 'Todas'
+      ? accessories
+      : accessories.filter((a) => a.platform === activeTab)
+
   // GSAP scroll animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate new releases cards
       gsap.from('.new-releases-grid .product-card', {
         y: 40,
         opacity: 0,
@@ -143,7 +139,6 @@ export default function ProductGrid() {
         },
       })
 
-      // Animate consoles cards
       gsap.from('.consoles-grid .product-card', {
         y: 40,
         opacity: 0,
@@ -156,6 +151,19 @@ export default function ProductGrid() {
           toggleActions: 'play none none none',
         },
       })
+
+      gsap.from('.accessories-grid .product-card', {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.08,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.accessories-grid',
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+      })
     }, sectionRef)
 
     return () => ctx.revert()
@@ -164,12 +172,11 @@ export default function ProductGrid() {
   return (
     <section ref={sectionRef} className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* ── Novedades ── */}
-        <div className="mb-20">
+        {/* ── Novedades / Juegos ── */}
+        <div id="juegos" className="mb-20 scroll-mt-36">
           <SectionHeader
             label="// Novedades"
             title="Nuevos Lanzamientos"
-            href="#novedades"
           />
           <div className="new-releases-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {newReleases.map((product) => (
@@ -179,11 +186,10 @@ export default function ProductGrid() {
         </div>
 
         {/* ── Consolas ── */}
-        <div ref={consolesRef}>
+        <div id="consolas" className="mb-20 scroll-mt-36">
           <SectionHeader
             label="// Consolas"
             title="Consolas"
-            href="#consolas"
           />
 
           {/* Platform filter tabs */}
@@ -205,6 +211,37 @@ export default function ProductGrid() {
 
           <div className="consoles-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {filteredConsoles.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+
+        {/* ── Accesorios ── */}
+        <div id="accesorios" className="scroll-mt-36">
+          <SectionHeader
+            label="// Accesorios"
+            title="Accesorios"
+          />
+
+          {/* Platform filter tabs */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {platformTabs.map((tab) => (
+              <button
+                key={`acc-${tab}`}
+                onClick={() => setActiveTab(tab)}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-200 ${
+                  activeTab === tab
+                    ? 'bg-neon-green text-void'
+                    : 'bg-void-lighter text-ghost/60 border border-ghost/10 hover:text-ghost hover:border-ghost/20'
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          <div className="accessories-grid grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            {filteredAccessories.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

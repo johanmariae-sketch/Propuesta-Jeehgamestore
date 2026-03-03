@@ -12,13 +12,13 @@ export const storeProfile = {
 
 // ─── Navigation Categories ───
 export const categories = [
-  { label: 'PlayStation 5', href: '#ps5' },
-  { label: 'Nintendo Switch 2', href: '#switch' },
-  { label: 'Xbox Series', href: '#xbox' },
-  { label: 'Juegos', href: '#juegos' },
-  { label: 'Accesorios', href: '#accesorios' },
-  { label: 'Pre-Ordenes', href: '#preorden' },
-  { label: 'Ofertas', href: '#ofertas' },
+  { label: 'PlayStation 5', href: '#consolas', filter: 'PS5' },
+  { label: 'Nintendo Switch 2', href: '#consolas', filter: 'Switch 2' },
+  { label: 'Xbox Series', href: '#consolas', filter: 'Xbox' },
+  { label: 'Juegos', href: '#juegos', filter: null },
+  { label: 'Accesorios', href: '#accesorios', filter: null },
+  { label: 'Pre-Ordenes', href: '#juegos', filter: null },
+  { label: 'Ofertas', href: '#consolas', filter: null },
 ]
 
 // ─── Hero Banners (carousel) ───
@@ -82,6 +82,23 @@ export const consoles = [
   { id: 16, name: 'Xbox Series X 1TB Digital', platform: 'Xbox', price: 38950, salePrice: 36950, image: '/images/products/consoles/xbox-series-x-digital-white.png', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
   { id: 17, name: 'Xbox Series S 512GB', platform: 'Xbox', price: null, salePrice: 24950, image: '/images/products/consoles/xbox-series-s.png', badge: null, href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
   { id: 18, name: 'Xbox Series X 1TB SSD', platform: 'Xbox', price: 39450, salePrice: 37450, image: '/images/products/consoles/xbox-series-x.png', badge: 'Oferta', href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
+]
+
+// ─── Accessories ───
+export const accessories = [
+  // PS5 Accessories
+  { id: 30, name: 'DualSense Edge', platform: 'PS5', price: null, salePrice: 11300, image: '/images/products/accessories/dualsense-edge.png', badge: null, href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 31, name: 'DualSense Chroma Pearl', platform: 'PS5', price: null, salePrice: 3450, image: '/images/products/accessories/dualsense-white-ps.png', badge: null, href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 32, name: 'Pulse Explore Earbuds', platform: 'PS5', price: null, salePrice: 11950, image: '/images/products/accessories/pulse-explore.png', badge: null, href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 33, name: 'Pulse 3D Headset', platform: 'PS5', price: null, salePrice: 5900, image: '/images/products/accessories/pulse-3d.png', badge: null, href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 34, name: 'Pulse Elite Headset', platform: 'PS5', price: null, salePrice: 9250, image: '/images/products/accessories/pulse-elite.png', badge: null, href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 35, name: 'PlayStation VR2', platform: 'PS5', price: null, salePrice: 29450, image: '/images/products/accessories/psvr2.png', badge: null, href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  { id: 36, name: 'PlayStation Portal', platform: 'PS5', price: null, salePrice: 15450, image: '/images/products/accessories/ps-portal.png', badge: null, href: 'https://www.instagram.com/p/DUY615plLQa/' },
+  // Xbox Accessories
+  { id: 40, name: 'Control Xbox Series', platform: 'Xbox', price: null, salePrice: 3200, image: '/images/products/accessories/xbox-controller.png', badge: null, href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
+  { id: 41, name: 'Control Xbox Elite Series 2', platform: 'Xbox', price: null, salePrice: 8300, image: '/images/products/accessories/xbox-elite-2.png', badge: null, href: 'https://www.instagram.com/p/DUY5_UqFNRV/' },
+  // NSW2 Accessories
+  { id: 45, name: 'Control Pro NSW2', platform: 'Switch 2', price: null, salePrice: 6450, image: '/images/products/accessories/nsw-pro-controller.png', badge: null, href: 'https://www.instagram.com/p/DUY6ZupFPjY/' },
 ]
 
 export const deals = [
