@@ -123,6 +123,17 @@ export default function ProductGrid() {
       ? accessories
       : accessories.filter((a) => a.platform === activeTab)
 
+  // Listen for platform filter events from Navbar
+  useEffect(() => {
+    function handleFilter(e) {
+      if (e.detail && e.detail.platform) {
+        setActiveTab(e.detail.platform)
+      }
+    }
+    window.addEventListener('filterPlatform', handleFilter)
+    return () => window.removeEventListener('filterPlatform', handleFilter)
+  }, [])
+
   // GSAP scroll animations
   useEffect(() => {
     const ctx = gsap.context(() => {

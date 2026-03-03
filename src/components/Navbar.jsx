@@ -403,8 +403,19 @@ export default function Navbar() {
                 key={cat.label}
                 onClick={() => {
                   setActiveCategory(cat.label)
-                  const el = document.querySelector(cat.href)
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  // Dispatch platform filter event to ProductGrid
+                  if (cat.filter) {
+                    window.dispatchEvent(new CustomEvent('filterPlatform', { detail: { platform: cat.filter } }))
+                  }
+                  // Scroll to the section
+                  setTimeout(() => {
+                    const el = document.querySelector(cat.href)
+                    if (el) {
+                      const headerHeight = 140
+                      const top = el.getBoundingClientRect().top + window.scrollY - headerHeight
+                      window.scrollTo({ top, behavior: 'smooth' })
+                    }
+                  }, 50)
                 }}
                 className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium border transition-all duration-200 ${
                   activeCategory === cat.label
@@ -558,10 +569,18 @@ export default function Navbar() {
                 key={cat.label}
                 onClick={() => {
                   setMenuOpen(false)
+                  setActiveCategory(cat.label)
+                  if (cat.filter) {
+                    window.dispatchEvent(new CustomEvent('filterPlatform', { detail: { platform: cat.filter } }))
+                  }
                   setTimeout(() => {
                     const el = document.querySelector(cat.href)
-                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                  }, 300)
+                    if (el) {
+                      const headerHeight = 140
+                      const top = el.getBoundingClientRect().top + window.scrollY - headerHeight
+                      window.scrollTo({ top, behavior: 'smooth' })
+                    }
+                  }, 350)
                 }}
                 className="block w-full text-left px-4 py-3 rounded-xl text-ghost text-lg font-sora font-medium hover:bg-void-light transition-colors duration-200"
                 style={{
