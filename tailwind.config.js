@@ -4,16 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        void: '#0A0A14',
-        'void-light': '#12121F',
-        'void-lighter': '#1A1A2E',
-        'neon-green': '#39FF14',
-        plasma: '#7B61FF',
+        void: '#0D0518',
+        'void-light': '#1A0F2E',
+        'void-lighter': '#2A1548',
+        'neon-green': '#FF2D6B',
+        plasma: '#9B59FF',
         cyan: '#00D4FF',
         'hot-pink': '#FF2D6B',
         gold: '#FFD700',
         ghost: '#F0EFF4',
-        'ghost-dim': '#8A8A9A',
+        'ghost-dim': '#9A8AAE',
       },
       fontFamily: {
         sora: ['Sora', 'sans-serif'],

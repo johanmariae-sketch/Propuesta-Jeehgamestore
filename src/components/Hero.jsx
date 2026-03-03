@@ -97,7 +97,7 @@ export default function Hero() {
               href={banner.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neon-green text-void font-semibold text-sm tracking-wide hover:shadow-[0_0_25px_rgba(57,255,20,0.35)] transition-all duration-300 hover:scale-105"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neon-green text-void font-semibold text-sm tracking-wide hover:shadow-[0_0_25px_rgba(255,45,107,0.4)] transition-all duration-300 hover:scale-105"
             >
               {banner.cta}
               <ChevronRight size={16} />

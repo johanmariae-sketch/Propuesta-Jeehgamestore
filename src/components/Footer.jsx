@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Instagram, Phone, Gamepad2, MapPin } from 'lucide-react'
+import { Instagram, Phone, MapPin } from 'lucide-react'
 import { gsap } from '../utils/animations'
 import { storeProfile, tickerMessages } from '../data/games'
 
@@ -52,7 +52,7 @@ export default function Footer() {
           {/* Col 1: Brand */}
           <div className="footer-col">
             <a href="#" className="flex items-center gap-2">
-              <Gamepad2 size={20} className="text-neon-green" />
+              <img src="/images/logo.jpg" alt="Jeeh Games Store" className="h-10 w-10 rounded-lg object-cover" />
               <span className="flex items-baseline gap-0.5">
                 <span className="font-sora font-bold text-xl text-ghost tracking-tight">
                   Jeeh Games

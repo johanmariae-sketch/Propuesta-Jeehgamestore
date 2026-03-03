@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { Search, Menu, X, Gamepad2, ShoppingBag, Instagram, Phone, LayoutGrid, ChevronDown } from 'lucide-react'
+import { Search, Menu, X, ShoppingBag, Instagram, Phone, LayoutGrid, ChevronDown } from 'lucide-react'
 import { useScrollMorph } from '../hooks/useScrollMorph'
 import { storeProfile, categories, newReleases, consoles, accessories } from '../data/games'
 
@@ -79,11 +79,12 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-14 md:h-16 gap-4">
           {/* Left: Logo */}
           <a href="#" className="flex items-center gap-2 group flex-shrink-0">
-            <Gamepad2
-              size={24}
-              className="text-neon-green transition-transform duration-300 group-hover:rotate-12"
+            <img
+              src="/images/logo.jpg"
+              alt="Jeeh Games Store"
+              className="h-10 w-10 rounded-lg object-cover transition-transform duration-300 group-hover:scale-105"
             />
-            <span className="flex items-baseline gap-0.5">
+            <span className="hidden sm:flex items-baseline gap-0.5">
               <span className="font-sora font-bold text-lg tracking-tight text-ghost">
                 Jeeh Games
               </span>
