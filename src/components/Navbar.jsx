@@ -1,13 +1,28 @@
-import { useState } from 'react'
-import { Search, Menu, X, Gamepad2, ShoppingBag, Instagram, Phone } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { Search, Menu, X, Gamepad2, ShoppingBag, Instagram, Phone, LayoutGrid, ChevronDown } from 'lucide-react'
 import { useScrollMorph } from '../hooks/useScrollMorph'
-import { storeProfile, categories } from '../data/games'
+import { storeProfile, categories, newReleases, consoles } from '../data/games'
 
 export default function Navbar() {
   const isScrolled = useScrollMorph('hero')
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [activeCategory, setActiveCategory] = useState(null)
+  const [catalogOpen, setCatalogOpen] = useState(false)
+  const catalogRef = useRef(null)
+
+  // Close catalog when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (catalogRef.current && !catalogRef.current.contains(e.target)) {
+        setCatalogOpen(false)
+      }
+    }
+    if (catalogOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [catalogOpen])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -172,6 +187,105 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-2 py-2 overflow-x-auto scrollbar-hide">
+            {/* Catálogo Button */}
+            <div ref={catalogRef} className="relative flex-shrink-0">
+              <button
+                onClick={() => setCatalogOpen(!catalogOpen)}
+                className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-semibold border transition-all duration-200 ${
+                  catalogOpen
+                    ? 'border-neon-green text-void bg-neon-green'
+                    : 'border-neon-green/50 text-neon-green bg-neon-green/10 hover:bg-neon-green hover:text-void'
+                }`}
+              >
+                <LayoutGrid size={14} />
+                Catálogo
+                <ChevronDown size={12} className={`transition-transform duration-200 ${catalogOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* ─── Catalog Dropdown Panel ─── */}
+              <div
+                className={`absolute top-full left-0 mt-2 w-[90vw] max-w-4xl bg-void-light border border-ghost/10 rounded-2xl shadow-2xl shadow-black/40 overflow-hidden transition-all duration-300 origin-top-left ${
+                  catalogOpen
+                    ? 'opacity-100 scale-100 pointer-events-auto'
+                    : 'opacity-0 scale-95 pointer-events-none'
+                }`}
+                style={{ zIndex: 60 }}
+              >
+                <div className="p-5 max-h-[75vh] overflow-y-auto">
+                  {/* Juegos */}
+                  <div className="mb-6">
+                    <h3 className="font-mono text-xs tracking-widest text-neon-green uppercase mb-3">
+                      // Juegos
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                      {newReleases.map((p) => (
+                        <a
+                          key={p.id}
+                          href={p.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setCatalogOpen(false)}
+                          className="group flex flex-col items-center gap-2 p-3 rounded-xl bg-void-lighter border border-ghost/5 hover:border-neon-green/30 transition-all duration-200"
+                        >
+                          <div className="w-full aspect-square rounded-lg overflow-hidden bg-void">
+                            <img src={p.image} alt={p.name} className="w-full h-full object-contain p-1" loading="lazy" />
+                          </div>
+                          <div className="text-center w-full">
+                            <p className="text-xs font-semibold text-ghost line-clamp-1 group-hover:text-neon-green transition-colors">
+                              {p.name}
+                            </p>
+                            <p className="text-[10px] text-ghost-dim">{p.platform}</p>
+                            <p className="text-xs font-mono font-bold text-neon-green mt-0.5">
+                              RD${(p.salePrice || p.price).toLocaleString()}
+                            </p>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Consolas */}
+                  <div>
+                    <h3 className="font-mono text-xs tracking-widest text-neon-green uppercase mb-3">
+                      // Consolas
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                      {consoles.map((p) => (
+                        <a
+                          key={p.id}
+                          href={p.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setCatalogOpen(false)}
+                          className="group flex flex-col items-center gap-2 p-3 rounded-xl bg-void-lighter border border-ghost/5 hover:border-neon-green/30 transition-all duration-200"
+                        >
+                          <div className="w-full aspect-square rounded-lg overflow-hidden bg-void">
+                            <img src={p.image} alt={p.name} className="w-full h-full object-contain p-1" loading="lazy" />
+                          </div>
+                          <div className="text-center w-full">
+                            <p className="text-xs font-semibold text-ghost line-clamp-1 group-hover:text-neon-green transition-colors">
+                              {p.name}
+                            </p>
+                            <p className="text-[10px] text-ghost-dim">{p.platform}</p>
+                            <div className="flex items-baseline justify-center gap-1 mt-0.5">
+                              {p.price && p.salePrice && (
+                                <span className="line-through text-ghost/30 text-[10px] font-mono">
+                                  RD${p.price.toLocaleString()}
+                                </span>
+                              )}
+                              <span className="text-xs font-mono font-bold text-neon-green">
+                                RD${(p.salePrice || p.price).toLocaleString()}
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {categories.map((cat) => (
               <a
                 key={cat.href}
@@ -211,6 +325,57 @@ export default function Navbar() {
               placeholder="Buscar juegos, consolas..."
               className="w-full pl-10 pr-4 py-3 rounded-full bg-void-lighter border border-ghost/10 text-sm text-ghost placeholder:text-ghost-dim/60 focus:outline-none focus:border-neon-green/50 transition-all duration-200"
             />
+          </div>
+
+          {/* Mobile Catálogo */}
+          <div className="mb-6">
+            <p className="text-[11px] uppercase tracking-[0.15em] text-ghost-dim mb-3 px-2">
+              Catálogo
+            </p>
+
+            {/* Juegos */}
+            <p className="text-[10px] uppercase tracking-widest text-neon-green mb-2 px-2">Juegos</p>
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              {newReleases.map((p) => (
+                <a
+                  key={p.id}
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 p-2 rounded-xl bg-void-light border border-ghost/5 hover:border-neon-green/30 transition-all"
+                >
+                  <img src={p.image} alt={p.name} className="w-12 h-12 rounded-lg object-contain bg-void" loading="lazy" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-ghost truncate">{p.name}</p>
+                    <p className="text-[10px] text-ghost-dim">{p.platform}</p>
+                    <p className="text-[11px] font-mono font-bold text-neon-green">RD${(p.salePrice || p.price).toLocaleString()}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            {/* Consolas */}
+            <p className="text-[10px] uppercase tracking-widest text-neon-green mb-2 px-2">Consolas</p>
+            <div className="grid grid-cols-2 gap-2 mb-4">
+              {consoles.map((p) => (
+                <a
+                  key={p.id}
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 p-2 rounded-xl bg-void-light border border-ghost/5 hover:border-neon-green/30 transition-all"
+                >
+                  <img src={p.image} alt={p.name} className="w-12 h-12 rounded-lg object-contain bg-void" loading="lazy" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-semibold text-ghost truncate">{p.name}</p>
+                    <p className="text-[10px] text-ghost-dim">{p.platform}</p>
+                    <p className="text-[11px] font-mono font-bold text-neon-green">RD${(p.salePrice || p.price).toLocaleString()}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Mobile Category Links */}
